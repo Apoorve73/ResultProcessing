@@ -10,7 +10,18 @@
         <h2>Total Branches: {{record['no_of_branches']}}</h2>
         <p class="lead">
          {% if courses_len == record['no_of_branches'] and not record['processed'] %}
-            <a class="btn btn-primary btn-lg" href="{{url_for('generateMeritFunction',course_id=course_id)}}" role="button">Generate Result</a>
+         <form method="POST" action="{ { url_for('chance_memo_input', course_id=course_id) } }">
+         <div class="form-group">
+             <input required="required" name="Chance_memo" class="form-control" type="number" placeholder="Total Chance Memo Number">
+         </div>
+       
+         <div class="input-group-append">
+           <button class="btn btn-success" type="submit">Submit</button>
+         </div>
+        </form>   
+
+
+            <a class="btn btn-primary btn-lg" href="{{url_for('generateMeritFunction',course_id=course_id, chance_memo=chance_memo)}}" role="button">Generate Result</a>
          {% elif record['processed'] %}
         </p>
         <a href="{{url_for('generatePDFRoute')}}"><button type="button" class="btn btn-primary btn-lg">Download CSV</button></a>

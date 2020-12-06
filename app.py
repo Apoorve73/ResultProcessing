@@ -28,6 +28,7 @@ app.config['CELERY_BROKER_URL'] ='redis://localhost:6379/0'
 
 celery = make_celery(app)
 
+global course_id;
 
 
 #----------------------------------------------------------------------------#
@@ -94,6 +95,18 @@ def viewStudents(course_id):
     courses_len = courses_collection.count_documents({'course':course_id})
 
     return render_template('pages/view_students.html',total=total,courses_len=courses_len,internals=internals,externals=externals,record=record,courses=courses,form=form,course_id=course_id)
+
+@app.route('/chance_memo', methods=['GET','POST'])
+def chance_memo_input(course_id):
+    
+    if request.method:
+        global chance_memo;
+        chance_memo = request.form.get('Chance_memo')
+        chance_memo = int(chance_memo)
+        if num >= 0:
+            return redirect(url_for('viewStudents', course_id = int(course_id)))
+        else:
+            return;
 
 # Generate the merit
 @app.route('/merit/generate/<course_id>', methods=['GET', 'POST'])
